@@ -8,8 +8,16 @@ const App = () => {
   const { ticker, setTicker, from, setFrom, to, setTo, search } = useStocks();
 
   return (
-    <div style={{ margin: 100 }}>
+    <div style={{ margin: '20px 100px' }}>
       <div>
+        <p
+          style={{
+            textAlign: 'center',
+            fontSize: 22,
+          }}
+        >
+          Stocks search
+        </p>
         <div style={{ marginTop: 5 }}>
           <span style={{ marginRight: 15 }}>Enter a Stock Ticker:</span>
           <input
