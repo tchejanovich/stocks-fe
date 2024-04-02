@@ -1,18 +1,14 @@
-const UNEXPECTED_ERROR_OBJECT = {
-  data: null,
-  errorMessage: 'Unexpected error',
-};
-
 const getTickerData = async ({ ticker, from, to }) => {
-  const response = await fetch(
-    `http://localhost:3000/stocks/${ticker}?from=${from}&to=${to}`
-  );
   try {
+    const response = await fetch(
+      `http://localhost:3000/stocks/${ticker}?from=${from}&to=${to}`
+    );
     switch (response.status) {
       case 204:
         return { data: null, errorMessage: null };
 
-      case 400 | 500: {
+      case 400:
+      case 500: {
         const body = await response.json();
         return { data: null, errorMessage: body.error };
       }
@@ -23,10 +19,16 @@ const getTickerData = async ({ ticker, from, to }) => {
       }
 
       default:
-        return UNEXPECTED_ERROR_OBJECT;
+        return {
+          data: null,
+          errorMessage: 'Unexpected error',
+        };
     }
   } catch (error) {
-    return UNEXPECTED_ERROR_OBJECT;
+    return {
+      data: null,
+      errorMessage: 'Error connecting to the server',
+    };
   }
 };
 
